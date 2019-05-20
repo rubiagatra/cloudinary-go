@@ -110,6 +110,9 @@ func (c *Cloudinary) send(url string, postParams url.Values, options Option) []b
 
 	client := http.Client{}
 	resp, err := client.Do(req)
+	fmt.Println(resp)
+	fmt.Println(err)
+	fmt.Println(postParams)
 	fmt.Println("DO REQUEST")
 	defer resp.Body.Close()
 
