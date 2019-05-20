@@ -118,7 +118,7 @@ func (c *Cloudinary) send(url string, postParams url.Values, options Option) []b
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println("ioutil")
-		fmt.Prinln(err)
+		fmt.Println(err)
 	}
 	fmt.Println("RESP BODY")
 
