@@ -113,7 +113,13 @@ func (c *Cloudinary) send(url string, postParams url.Values, options Option) []b
 	fmt.Println("DO REQUEST")
 	defer resp.Body.Close()
 
-	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(resp)
+	fmt.Println(err)
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("ioutil")
+		fmt.Prinln(err)
+	}
 	fmt.Println("RESP BODY")
 
 	return body
