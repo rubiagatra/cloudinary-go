@@ -3,6 +3,7 @@ package cloudinary
 import (
 	"crypto/sha1"
 	"encoding/hex"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -98,19 +99,22 @@ func (c *Cloudinary) createSignature(options Option) string {
 func (c *Cloudinary) send(url string, postParams url.Values, options Option) []byte {
 	postParams.Add("api_key", c.publicKey)
 	postParams.Add("signature", c.createSignature(options))
-
+	fmt.Println("create signaure")
 	req, err := http.NewRequest("POST", c.urls[url], strings.NewReader(postParams.Encode()))
+	fmt.Println("SENT REQUEST")
 
 	if err != nil {
+		fmt.Println("PANIC")
 		panic(err)
 	}
 
 	client := http.Client{}
 	resp, err := client.Do(req)
-
+	fmt.Println("DO REQUEST")
 	defer resp.Body.Close()
 
 	body, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println("RESP BODY")
 
 	return body
 }
