@@ -2,6 +2,7 @@ package cloudinary
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
@@ -71,16 +72,22 @@ type Upload struct {
 
 // Upload is uploading an image
 func (c *Cloudinary) Upload(file string, options Option) (*Upload, error) {
+	fmt.Println("MASOOOOOOK")
 	c.checkOptionsAreValid(options, uploadOptions)
+	fmt.Println("checkOptionAreValid")
 	options = c.sortParamsByKey(options)
+	fmt.Println("sortParamsByKey")
 
 	form := url.Values{}
 	for paramName, value := range options {
 		form.Add(paramName, value)
 	}
+	fmt.Println("paramName")
 	form.Add("file", file)
+	fmt.Println("file")
 
 	body := c.send("upload", form, options)
+	fmt.Print("Send")
 
 	upload := &Upload{}
 	err := json.Unmarshal(body, upload)
@@ -88,6 +95,6 @@ func (c *Cloudinary) Upload(file string, options Option) (*Upload, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	fmt.Println("Unmarshal")
 	return upload, nil
 }
